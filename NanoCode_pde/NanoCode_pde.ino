@@ -3,30 +3,49 @@
   Code to make the keyswitch tester come alive
 */
 
+// buttons
+const int buttonOne = 2;
+const int buttonTwo = 3;
 
-const int button = 2;
 
-int buttonState = 0;
+// button states
+int buttonOneState = 0;
+int buttonTwoState = 0;
+
+// meta
 boolean wasPressed = false;
 
 void setup(){
   
   Serial.begin(9600);
-  pinMode(button,INPUT);
+  pinMode(buttonOne,INPUT_PULLUP);
+  pinMode(buttonTwo, INPUT);
       
 }
 
 void loop(){
   
   
-  buttonState = digitalRead(button);
-  if(buttonState == HIGH){
+  buttonOneState = digitalRead(buttonOne);
+  
+  buttonTwoState = digitalRead(buttonTwoState);
+  
+  // handle button one
+  if(buttonOneState == LOW){
     if(wasPressed == false){
-      Serial.println("up");
+      Serial.println("1");
       wasPressed = true;
     }
   } else {
 //    Serial.println("down");
     wasPressed = false;
   }  
+  
+  // handle button two
+  if(buttonTwoState == HIGH){
+//    Serial.println("x");
+  } else {
+//    Serial.println("0");
+  }
+  
 }
