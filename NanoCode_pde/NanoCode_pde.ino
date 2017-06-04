@@ -7,6 +7,9 @@
 const int buttonOne = 2;
 const int buttonTwo = 3;
 
+const int buttons = 2;
+const int buttonPins[] = {2,3};
+
 
 // button states
 int buttonOneState = 0;
@@ -16,40 +19,34 @@ int buttonTwoState = 0;
 boolean buttonOneWasPressed = false;
 boolean buttonTwoWasPressed = false;
 
+// Each index represents a corresponding pin, e.g buttonPressed[1] is the state of buttonPins[1]
+boolean buttonPressed[] = {false,false};
+
+// Output, this also corersponds to the pin in the buttonPins[] like buttonPressed[]
+char charOut[] = {'x','o'};
+
 void setup(){
   
   Serial.begin(9600);
-  pinMode(buttonOne,INPUT_PULLUP);
-  pinMode(buttonTwo,INPUT_PULLUP);
+  for(int i = 0; i < buttons; i++){
+   pinMode(buttonPins[i],INPUT_PULLUP); 
+  }
       
 }
 
 void loop(){
   
   
-  buttonOneState = digitalRead(buttonOne);
-  
-  buttonTwoState = digitalRead(buttonTwo);
-  
-  // handle button one
-  if(buttonOneState == LOW){
-    if(buttonOneWasPressed == false){
-      Serial.println("1");
-      buttonOneWasPressed = true;
+  for(int i = 0; i < buttons; i++){
+    int buttonState = digitalRead(buttonPins[i]);
+    if(buttonState == LOW){
+      if(!buttonPressed[i]){
+        Serial.println(charOut[i]);
+        buttonPressed[i] = true;
+      }
+    } else {
+       buttonPressed[i] = false; 
     }
-  } else {
-//    Serial.println("down");
-    buttonOneWasPressed = false;
-  }  
-  
-  // handle button two
-  if(buttonTwoState == LOW){
-    if(buttonTwoWasPressed){
-       Serial.println("2");
-       buttonTwoWasPressed = true;
-    }
-  } else {
-      buttonTwoWasPressed = false;
   }
   
 }
