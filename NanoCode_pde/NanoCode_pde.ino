@@ -13,13 +13,14 @@ int buttonOneState = 0;
 int buttonTwoState = 0;
 
 // meta
-boolean wasPressed = false;
+boolean buttonOneWasPressed = false;
+boolean buttonTwoWasPressed = false;
 
 void setup(){
   
   Serial.begin(9600);
   pinMode(buttonOne,INPUT_PULLUP);
-  pinMode(buttonTwo, INPUT);
+  pinMode(buttonTwo,INPUT_PULLUP);
       
 }
 
@@ -28,24 +29,27 @@ void loop(){
   
   buttonOneState = digitalRead(buttonOne);
   
-  buttonTwoState = digitalRead(buttonTwoState);
+  buttonTwoState = digitalRead(buttonTwo);
   
   // handle button one
   if(buttonOneState == LOW){
-    if(wasPressed == false){
+    if(buttonOneWasPressed == false){
       Serial.println("1");
-      wasPressed = true;
+      buttonOneWasPressed = true;
     }
   } else {
 //    Serial.println("down");
-    wasPressed = false;
+    buttonOneWasPressed = false;
   }  
   
   // handle button two
-  if(buttonTwoState == HIGH){
-//    Serial.println("x");
+  if(buttonTwoState == LOW){
+    if(buttonTwoWasPressed){
+       Serial.println("2");
+       buttonTwoWasPressed = true;
+    }
   } else {
-//    Serial.println("0");
+      buttonTwoWasPressed = false;
   }
   
 }
