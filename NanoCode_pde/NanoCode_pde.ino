@@ -35,8 +35,6 @@ void setup(){
 }
 
 void loop(){
-  
-  
   for(int i = 0; i < buttons; i++){
     int buttonState = digitalRead(buttonPins[i]);
     if(buttonState == LOW){
@@ -48,5 +46,4 @@ void loop(){
        buttonPressed[i] = false; 
     }
   }
-  
 }
