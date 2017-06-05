@@ -3,27 +3,16 @@
   Code to make the keyswitch tester come alive
 */
 
-// buttons
-const int buttonOne = 2;
-const int buttonTwo = 3;
 
-const int buttons = 2;
-const int buttonPins[] = {2,3};
+const int buttons = 5;
+const int buttonPins[] = {2,3,4,5,6};
 
-
-// button states
-int buttonOneState = 0;
-int buttonTwoState = 0;
-
-// meta
-boolean buttonOneWasPressed = false;
-boolean buttonTwoWasPressed = false;
 
 // Each index represents a corresponding pin, e.g buttonPressed[1] is the state of buttonPins[1]
-boolean buttonPressed[] = {false,false};
+boolean buttonPressed[] = {false,false,false,false,false};
 
 // Output, this also corersponds to the pin in the buttonPins[] like buttonPressed[]
-char charOut[] = {'x','o'};
+char charOut[] = {'1','2','3','4','5'};
 
 void setup(){
   
