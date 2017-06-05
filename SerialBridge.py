@@ -16,10 +16,26 @@ class EventParser:
 
     def parse(self, code):
         """ parses the code. The code will trigger an action """
-        if(code == "1"):
-            os.system('pactl set-sink-mute 1 ' + str(self.mute % 2))
-            self.mute += 1
 
+        # first determine the os
+        if sys.platform == "linux" or sys.platform == "linux2":
+            self.parseLinux(code)
+        elif sys.platform == "win32":
+            print("windows")
+        elif sys.platform == "darwin":
+            print("mac")
+
+    def parseLinux(self, code):
+        if code == '1':
+            os.system('xdotool key XF86AudioLowerVolume')
+        elif code == '2':
+            os.system('xdotool key XF86AudioRaiseVolume')
+        elif code == '3':
+            os.system('xdotool key XF86AudioPrev')
+        elif code == '4':
+            os.system('xdotool key XF86AudioPlay')
+        elif code == '5':
+            os.system('xdotool key XF86AudioNext')
 
 class KeySender:
     """ Sends keys to the OS, needs to be multi-os to handle it"""
@@ -48,6 +64,7 @@ class SerialListener:
         
     def listen(self):
         """ Listen to the chosen port"""
+        print("listening..")
         while True:
             self.serial.close()
             self.serial.open()
@@ -61,5 +78,6 @@ class SerialListener:
 
 
 if __name__ == '__main__':
+    print("script started..")
     listener = SerialListener()
     #keysender = KeySender()
