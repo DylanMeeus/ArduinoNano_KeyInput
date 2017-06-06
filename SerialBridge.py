@@ -4,7 +4,6 @@ import glob
 import sys
 import os
 import serial
-import uinput # This needs the uinput kernel module (terminal: modprobe uinput)
 
 
 
@@ -51,7 +50,7 @@ class SerialListener:
 
     def setup(self):
         self.parser = EventParser()
-        self.serialport = '/dev/ttyUSB0' # hardcoded for now because I know where it is..
+        self.serialport = '/dev/ttyUSB0'  # hardcoded for now because I know where it is..
         self.baud = 9600
         self.timeout = 1
         self.serial = serial.Serial(self.serialport, self.baud, timeout=self.timeout)
